@@ -1,0 +1,707 @@
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" type="image/x-icon" href="./favicon.png" />
+  <title>EO Dual Anazlyzer - V100</title>
+  <style>
+    /* width */
+    ::-webkit-scrollbar {
+      width: 6px;
+    }
+
+    /* Track */
+    ::-webkit-scrollbar-track {
+      box-shadow: transparent;
+      border-radius: 0px;
+      background: #020d1c;
+    }
+
+    /* Handle */
+    ::-webkit-scrollbar-thumb {
+      background: rgba(131, 145, 155, 0.54);
+      border-radius: 10px;
+    }
+
+    /* Handle on hover */
+    ::-webkit-scrollbar-thumb:hover {
+      background: rgba(131, 145, 155, 0.54);
+    }
+
+    body {
+      background-color: #699bc9;
+      overflow-y: auto;
+      overflow-x: hidden;
+    }
+
+    .egroup {
+      /*    background-color: rgb(0, 255, 34);*/
+      width: auto;
+      height: auto;
+      display: flex;
+    }
+
+    .ogroup {
+      /*   background-color: red;   */
+      width: auto;
+      height: auto;
+      vertical-align: bottom;
+      display: flex;
+    }
+
+    #container {
+      background-color: #0b0f29;
+      height: 492px;
+      width: 420px;
+    }
+
+    .eDigits {
+      background-color: rgba(0, 128, 0, 0.35);
+      color: #77ff88;
+      font-size: 20;
+      width: 26px;
+      height: 22px;
+      border-radius: 4px 4px 0px 0px;
+      display: flex;
+      justify-content: center;
+      justify-items: center;
+      align-items: center;
+      margin: 0px 1px 0px 0px;
+      /*  el 3er*/
+      border-bottom: 1px solid rgba(82, 229, 255, 0.24);
+    }
+
+    .oDigits {
+      background-color: rgba(219, 41, 41, 0.31);
+      color: #ff8080;
+      font-size: 20;
+      width: 26px;
+      height: 22px;
+      border-radius: 4px 4px 0px 0px;
+      display: flex;
+      justify-content: center;
+      justify-items: center;
+      align-items: center;
+      margin: 0px 1px 0px 0px;
+      border-bottom: 1px solid rgba(82, 229, 255, 0.24);
+    }
+
+    .ePosition {
+      background-color: rgba(2, 96, 185, 0.22);
+      color: rgba(62, 210, 255, 0.8);
+      font-size: 20;
+      width: 26px;
+      height: 22px;
+      border-radius: 0px 0px 4px 4px;
+      display: flex;
+      justify-content: center;
+      justify-items: center;
+      align-items: center;
+      margin: 0px 1px 4px 0px;
+    }
+
+    /**/
+    .oPosition {
+      background-color: rgba(10, 137, 147, 0.66);
+      color: rgba(226, 255, 252, 0.8);
+      font-size: 20;
+      width: 26px;
+      height: 22px;
+      border-radius: 0px 0px 4px 4px;
+      display: flex;
+      justify-content: center;
+      justify-items: center;
+      align-items: center;
+      margin: 0px 1px 4px 0px;
+    }
+
+    #d0,
+    #d1,
+    #d2,
+    #d3,
+    #d4,
+    #d5,
+    #d6,
+    #d7,
+    #d8,
+    #d9 {
+      display: flex;
+      flex-wrap: nowrap;
+      justify-content: right;
+      height: 48px;
+      width: 420px;
+      overflow-y: hidden;
+      overflow-x: auto;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="container">
+    <div id="d9">9</div>
+    <div id="d8">8</div>
+    <div id="d7">7</div>
+    <div id="d6">6</div>
+    <div id="d5">5</div>
+    <div id="d4">4</div>
+    <div id="d3">3</div>
+    <div id="d2">2</div>
+    <div id="d1">1</div>
+    <div id="d0">0</div>
+  </div>
+
+  <script>
+    var out = document.body;
+    //==============================================================
+
+    // var arr1 = [];
+    //  var arr2 = [];
+    //   arr2[0] = 0;
+    // var listC = [];
+    var porcentList = [];
+    periods = 25;
+
+    var eCounter = 0;
+    var oCounter = 0;
+
+    var symbol = "R_100";
+    var decimals = 2;
+    var contador = 0;
+
+    //========================================== Ontick
+    var co0 = 0;
+    var co1 = 0;
+    var co2 = 0;
+    var co3 = 0;
+    var co4 = 0;
+    var co5 = 0;
+    var co6 = 0;
+    var co7 = 0;
+    var co8 = 0;
+    var co9 = 0;
+
+    var ws = new WebSocket("wss://ws.binaryws.com/websockets/v3?app_id=1089");
+
+    ws.onopen = function (evt) {
+      ws.send(JSON.stringify({ ticks: symbol }));
+    };
+
+    var addOGroup = false;
+    var addEGroup = false;
+    var AusData = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+
+    var one = 0;
+    var ResData = [0, 0];
+    //  var DiferencePatterns = [];
+    var NegDiferenceColor = "rgba(255,0, 0, 0.84)";
+    var PosDiferenceColor = "rgba(89,255, 232, 0.75)";
+
+    let dg = [];
+    let dst = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+    
+let d0List = [];
+let d1List = [];
+let d2List = [];
+let d3List = [];
+let d4List = [];
+let d5List = [];
+let d6List = [];
+let d7List = [];
+let d8List = [];
+let d9List = [];
+    let d0counter = 0;
+    let d1counter = 0;
+    let d2counter = 0;
+    let d3counter = 0;
+    let d4counter = 0;
+    let d5counter = 0;
+    let d6counter = 0;
+    let d7counter = 0;
+    let d8counter = 0;
+    let d9counter = 0;
+    let prepare0 = false;
+    let prepare1 = false;
+    let prepare2 = false;
+    let prepare3 = false;
+    let prepare4 = false;
+    let prepare5 = false;
+    let prepare6 = false;
+    let prepare7 = false;
+    let prepare8 = false;
+    let prepare9 = false;
+
+    ws.onmessage = function (msg) {
+      contador++; 
+      var data = JSON.parse(msg.data); 
+      var digit = Number(data.tick.quote).toFixed(decimals).slice(-1); 
+      var isScrolledToBottom = out.scrollHeight - out.clientHeight <= out.scrollTop + 1;
+         
+dg.push(Number(digit));
+     
+
+
+
+
+      ResData[1] = digit;
+      ResData[0] = one;
+      one = digit;
+      var diferencias = ResData[1] - ResData[0];
+
+
+if (digit == 9) {
+    document.getElementById("d0").style.backgroundColor =  "#0b0f29";
+   document.getElementById("d1").style.backgroundColor = "#0b0f29"; 
+   document.getElementById("d2").style.backgroundColor = "#0b0f29"; 
+   document.getElementById("d3").style.backgroundColor = "#0b0f29"; 
+   document.getElementById("d4").style.backgroundColor = "#0b0f29"; 
+   document.getElementById("d5").style.backgroundColor = "#0b0f29"; 
+   document.getElementById("d6").style.backgroundColor = "#0b0f29"; 
+   document.getElementById("d7").style.backgroundColor = "#0b0f29"; 
+   document.getElementById("d8").style.backgroundColor = "#0b0f29"; 
+   document.getElementById("d9").style.backgroundColor = "#3399ff"; 
+    prepare9 = true;
+  console.log("prepare9"); 
+        AusData[9] = co9;
+        co9 = 0;
+      } else {
+        co9++;
+      }
+      if (digit == 8) {
+        document.getElementById("d0").style.backgroundColor =  "#0b0f29";
+   document.getElementById("d1").style.backgroundColor = "#0b0f29"; 
+   document.getElementById("d2").style.backgroundColor = "#0b0f29"; 
+   document.getElementById("d3").style.backgroundColor = "#0b0f29"; 
+   document.getElementById("d4").style.backgroundColor = "#0b0f29"; 
+   document.getElementById("d5").style.backgroundColor = "#0b0f29"; 
+   document.getElementById("d6").style.backgroundColor = "#0b0f29"; 
+   document.getElementById("d7").style.backgroundColor = "#0b0f29"; 
+   document.getElementById("d8").style.backgroundColor = "#3399ff"; 
+   document.getElementById("d9").style.backgroundColor = "#0b0f29"; 
+        prepare8 = true;
+  console.log("prepare8"); 
+        AusData[8] = co8;
+        co8 = 0;
+      } else {
+        co8++;
+      } 
+      if (digit == 7) {
+        document.getElementById("d0").style.backgroundColor =  "#0b0f29";
+   document.getElementById("d1").style.backgroundColor = "#0b0f29"; 
+   document.getElementById("d2").style.backgroundColor = "#0b0f29"; 
+   document.getElementById("d3").style.backgroundColor = "#0b0f29";
+   document.getElementById("d4").style.backgroundColor = "#0b0f29"; 
+   document.getElementById("d5").style.backgroundColor = "#0b0f29"; 
+   document.getElementById("d6").style.backgroundColor = "#0b0f29"; 
+   document.getElementById("d7").style.backgroundColor = "#3399ff";  
+   document.getElementById("d8").style.backgroundColor = "#0b0f29"; 
+   document.getElementById("d9").style.backgroundColor = "#0b0f29"; 
+        prepare7 = true;
+  console.log("prepare7"); 
+        AusData[7] = co7;
+        co7 = 0;
+      } else {
+        co7++;
+      }
+      if (digit == 6) {
+        document.getElementById("d0").style.backgroundColor =  "#0b0f29";
+   document.getElementById("d1").style.backgroundColor = "#0b0f29"; 
+   document.getElementById("d2").style.backgroundColor = "#0b0f29"; 
+   document.getElementById("d3").style.backgroundColor =  "#0b0f29";
+   document.getElementById("d4").style.backgroundColor = "#0b0f29"; 
+   document.getElementById("d5").style.backgroundColor = "#0b0f29"; 
+   document.getElementById("d6").style.backgroundColor =  "#3399ff";
+   document.getElementById("d7").style.backgroundColor = "#0b0f29"; 
+   document.getElementById("d8").style.backgroundColor = "#0b0f29"; 
+   document.getElementById("d9").style.backgroundColor = "#0b0f29"; 
+        prepare6 = true;
+  console.log("prepare6"); 
+        AusData[6] = co6;
+        co6 = 0;
+      } else {
+        co6++;
+      }
+      if (digit == 5) {
+        document.getElementById("d0").style.backgroundColor =  "#0b0f29";
+   document.getElementById("d1").style.backgroundColor = "#0b0f29"; 
+   document.getElementById("d2").style.backgroundColor = "#0b0f29"; 
+   document.getElementById("d3").style.backgroundColor =  "#0b0f29"; 
+   document.getElementById("d4").style.backgroundColor = "#0b0f29"; 
+   document.getElementById("d5").style.backgroundColor = "#3399ff";
+   document.getElementById("d6").style.backgroundColor = "#0b0f29"; 
+   document.getElementById("d7").style.backgroundColor = "#0b0f29"; 
+   document.getElementById("d8").style.backgroundColor = "#0b0f29"; 
+   document.getElementById("d9").style.backgroundColor = "#0b0f29";
+        prepare5 = true;
+  console.log("prepare5"); 
+        AusData[5] = co5;
+        co5 = 0;
+      } else {
+        co5++;
+      }
+      if (digit == 4) {
+        document.getElementById("d0").style.backgroundColor =  "#0b0f29";
+   document.getElementById("d1").style.backgroundColor = "#0b0f29"; 
+   document.getElementById("d2").style.backgroundColor = "#0b0f29"; 
+   document.getElementById("d3").style.backgroundColor ="#0b0f29"; 
+   document.getElementById("d4").style.backgroundColor =  "#3399ff"; 
+   document.getElementById("d5").style.backgroundColor = "#0b0f29"; 
+   document.getElementById("d6").style.backgroundColor = "#0b0f29"; 
+   document.getElementById("d7").style.backgroundColor = "#0b0f29"; 
+   document.getElementById("d8").style.backgroundColor = "#0b0f29"; 
+   document.getElementById("d9").style.backgroundColor = "#0b0f29"; 
+        prepare4 = true;
+  console.log("prepare4"); 
+        AusData[4] = co4;
+        co4 = 0;
+      } else {
+        co4++;
+      }
+      if (digit == 3) {
+        document.getElementById("d0").style.backgroundColor =  "#0b0f29";
+   document.getElementById("d1").style.backgroundColor = "#0b0f29"; 
+   document.getElementById("d2").style.backgroundColor = "#0b0f29"; 
+   document.getElementById("d3").style.backgroundColor = "#3399ff"; 
+   document.getElementById("d4").style.backgroundColor = "#0b0f29"; 
+   document.getElementById("d5").style.backgroundColor = "#0b0f29"; 
+   document.getElementById("d6").style.backgroundColor = "#0b0f29"; 
+   document.getElementById("d7").style.backgroundColor = "#0b0f29"; 
+   document.getElementById("d8").style.backgroundColor = "#0b0f29"; 
+   document.getElementById("d9").style.backgroundColor = "#0b0f29";  
+        prepare3 = true;
+  console.log("prepare3"); 
+        AusData[3] = co3;
+        co3 = 0;
+      } else {
+        co3++;
+      }
+      if (digit == 2) {
+        document.getElementById("d0").style.backgroundColor =  "#0b0f29";
+   document.getElementById("d1").style.backgroundColor = "#0b0f29"; 
+   document.getElementById("d2").style.backgroundColor ="#3399ff"; 
+   document.getElementById("d3").style.backgroundColor = "#0b0f29" ; 
+   document.getElementById("d4").style.backgroundColor = "#0b0f29"; 
+   document.getElementById("d5").style.backgroundColor = "#0b0f29"; 
+   document.getElementById("d6").style.backgroundColor = "#0b0f29"; 
+   document.getElementById("d7").style.backgroundColor = "#0b0f29"; 
+   document.getElementById("d8").style.backgroundColor = "#0b0f29"; 
+   document.getElementById("d9").style.backgroundColor = "#0b0f29"; 
+        prepare2 = true;
+  console.log("prepare2"); 
+        AusData[2] = co2;
+        co2 = 0;
+      } else {
+        co2++;
+      }
+      if (digit == 1) {
+        document.getElementById("d0").style.backgroundColor =  "#0b0f29";
+   document.getElementById("d1").style.backgroundColor = "#3399ff"; 
+   document.getElementById("d2").style.backgroundColor = "#0b0f29"; 
+   document.getElementById("d3").style.backgroundColor = "#0b0f29"; 
+   document.getElementById("d4").style.backgroundColor = "#0b0f29"; 
+   document.getElementById("d5").style.backgroundColor = "#0b0f29"; 
+   document.getElementById("d6").style.backgroundColor = "#0b0f29"; 
+   document.getElementById("d7").style.backgroundColor = "#0b0f29"; 
+   document.getElementById("d8").style.backgroundColor = "#0b0f29"; 
+   document.getElementById("d9").style.backgroundColor = "#0b0f29"; 
+        prepare1 = true;
+  console.log("prepare1"); 
+        AusData[1] = co1;
+        co1 = 0;
+      } else {
+        co1++;
+      }
+      
+      if (digit == 0) {
+        document.getElementById("d0").style.backgroundColor =   "#3399ff";
+   document.getElementById("d1").style.backgroundColor = "#0b0f29"; 
+   document.getElementById("d2").style.backgroundColor = "#0b0f29"; 
+   document.getElementById("d3").style.backgroundColor ="#0b0f29"; 
+   document.getElementById("d4").style.backgroundColor = "#0b0f29"; 
+   document.getElementById("d5").style.backgroundColor = "#0b0f29"; 
+   document.getElementById("d6").style.backgroundColor = "#0b0f29"; 
+   document.getElementById("d7").style.backgroundColor = "#0b0f29"; 
+   document.getElementById("d8").style.backgroundColor = "#0b0f29"; 
+   document.getElementById("d9").style.backgroundColor = "#0b0f29"; 
+        prepare0 = true;
+  console.log("prepare0"); 
+        AusData[0] = co0;
+        co0 = 0;
+      } else {
+        co0++;
+      }
+
+
+      if(dg.length>3){
+  dg.shift();
+}
+      
+
+if(prepare0==true){
+  d0counter++;
+  
+   
+}
+if(prepare1==true){
+  d1counter++;
+ 
+  
+}
+if(prepare2==true){
+  d2counter++;
+  
+   
+}
+if(prepare3==true){
+  d3counter++;
+  
+   
+}
+if(prepare4==true){
+  d4counter++;
+  
+   
+}
+if(prepare5==true){
+  d5counter++;
+ 
+   
+}
+if(prepare6==true){
+  d6counter++;
+  
+  
+}
+if(prepare7==true){
+  d7counter++;
+  
+ 
+}
+if(prepare8==true){
+  d8counter++;
+ 
+  
+}
+if(prepare9==true){
+  d9counter++;
+   
+}
+
+if(d0counter ==2){ //el siguiente digito despues de 1
+  if(digit%2==0){  //si el siguiente digito es par 
+    d0List.push("1E");
+    prepare0 = false;
+    d0counter=0;
+   // AñadirDigitsE(digit,"E",dg[dg.length-2], contador, AusData[digit]);
+    AñadirDigitsE(digit,"E",dg[dg.length-2], contador, AusData[dg[dg.length-2]]);
+  }else{ //si el siguiente digito es impar 
+    prepare0 = false;
+    d0counter=0;
+    d0List.push("1O");
+    //AñadirDigitsO(digit,"O",dg[dg.length-2], contador, AusData[digit]);
+    AñadirDigitsO(digit,"O",dg[dg.length-2], contador, AusData[dg[dg.length-2]]);
+  } 
+}
+if(d1counter ==2){ //el siguiente digito despues de 1
+  if(digit%2==0){  //si el siguiente digito es par 
+    d1List.push("1E");
+    prepare1 = false;
+    d1counter=0;
+    AñadirDigitsE(digit,"E", dg[dg.length-2], contador, AusData[dg[dg.length-2]]);
+  }else{ //si el siguiente digito es impar 
+    prepare1 = false;
+    d1counter=0;
+    d1List.push("1O");
+    AñadirDigitsO(digit,"O",dg[dg.length-2], contador, AusData[dg[dg.length-2]]);
+  } 
+}
+if(d2counter ==2){ //el siguiente digito despues de 1
+  if(digit%2==0){  //si el siguiente digito es par 
+    d2List.push("1E");
+    prepare2 = false;
+    d2counter=0;
+    AñadirDigitsE(digit,"E",dg[dg.length-2], contador, AusData[dg[dg.length-2]]);
+  }else{ //si el siguiente digito es impar 
+    prepare2 = false;
+    d2counter=0;
+    d2List.push("1O");
+    AñadirDigitsO(digit,"O", dg[dg.length-2], contador, AusData[dg[dg.length-2]]);
+  } 
+}
+if(d3counter ==2){ //el siguiente digito despues de 1
+  if(digit%2==0){  //si el siguiente digito es par 
+    d3List.push("1E");
+    prepare3 = false;
+    d3counter=0;
+    AñadirDigitsE(digit,"E", dg[dg.length-2], contador, AusData[dg[dg.length-2]]);
+  }else{ //si el siguiente digito es impar 
+    prepare3 = false;
+    d3counter=0;
+    d3List.push("1O");
+    AñadirDigitsO(digit,"O", dg[dg.length-2], contador, AusData[dg[dg.length-2]]);
+  } 
+}
+if(d4counter ==2){ //el siguiente digito despues de 1
+  if(digit%2==0){  //si el siguiente digito es par 
+    d4List.push("1E");
+    prepare4 = false;
+    d4counter=0;
+    AñadirDigitsE(digit,"E", dg[dg.length-2], contador, AusData[dg[dg.length-2]]);
+  }else{ //si el siguiente digito es impar 
+    prepare4 = false;
+    d4counter=0;
+    d4List.push("1O");
+    AñadirDigitsO(digit,"O", dg[dg.length-2], contador, AusData[dg[dg.length-2]]);
+  } 
+}
+if(d5counter ==2){ //el siguiente digito despues de 1
+  if(digit%2==0){  //si el siguiente digito es par 
+    d5List.push("1E");
+    prepare5 = false;
+    d5counter=0;
+    AñadirDigitsE(digit,"E",dg[dg.length-2], contador, AusData[dg[dg.length-2]]);
+  }else{ //si el siguiente digito es impar 
+    prepare5 = false;
+    d5counter=0;
+    d5List.push("1O");
+    AñadirDigitsO(digit,"O", dg[dg.length-2], contador, AusData[dg[dg.length-2]]);
+  } 
+}
+if(d6counter ==2){ //el siguiente digito despues de 1
+  if(digit%2==0){  //si el siguiente digito es par 
+    d6List.push("1E");
+    prepare6 = false;
+    d6counter=0;
+    AñadirDigitsE(digit,"E", dg[dg.length-2], contador, AusData[dg[dg.length-2]]);
+  }else{ //si el siguiente digito es impar 
+    prepare6 = false;
+    d6counter=0;
+    d6List.push("1O");
+    AñadirDigitsO(digit,"O",dg[dg.length-2], contador, AusData[dg[dg.length-2]]);
+  } 
+}
+if(d7counter ==2){ //el siguiente digito despues de 1
+  if(digit%2==0){  //si el siguiente digito es par 
+    d7List.push("1E");
+    prepare7 = false;
+    d7counter=0;
+    AñadirDigitsE(digit,"E", dg[dg.length-2], contador, AusData[dg[dg.length-2]]);
+  }else{ //si el siguiente digito es impar 
+    prepare7 = false;
+    d7counter=0;
+    d7List.push("1O");
+    AñadirDigitsO(digit,"O",dg[dg.length-2], contador, AusData[dg[dg.length-2]]);
+  } 
+}
+if(d8counter ==2){ //el siguiente digito despues de 1
+  if(digit%2==0){  //si el siguiente digito es par 
+    d8List.push("1E");
+    prepare8 = false;
+    d8counter=0;
+    AñadirDigitsE(digit,"E", dg[dg.length-2], contador, AusData[dg[dg.length-2]]);
+  }else{ //si el siguiente digito es impar 
+    prepare8 = false;
+    d8counter=0;
+    d8List.push("1O");
+    AñadirDigitsO(digit,"O", dg[dg.length-2], contador, AusData[dg[dg.length-2]]);
+  } 
+}
+if(d9counter ==2){ //el siguiente digito despues de 1
+  if(digit%2==0){  //si el siguiente digito es par 
+    d9List.push("9E");
+    prepare9 = false;
+    d9counter=0;
+    AñadirDigitsE(digit,"E", dg[dg.length-2], contador, AusData[dg[dg.length-2]]);
+  }else{ //si el siguiente digito es impar 
+    prepare9 = false;
+    d9counter=0;
+    d9List.push("9O");
+    AñadirDigitsO(digit,"O", dg[dg.length-2], contador, AusData[dg[dg.length-2]]);
+  } 
+
+}
+
+
+//console.log("lista de targets: "+dst)
+console.log(d9List); 
+console.log(d8List); 
+console.log(d7List); 
+console.log(d6List); 
+console.log(d5List); 
+console.log(d4List); 
+console.log(d3List); 
+console.log(d2List); 
+console.log(d1List); 
+console.log(d0List);  
+
+      // your script goes here
+      // colors text 🟢🔵🔴
+
+      function AñadirDigitsE(digito,dualPosE, Ec, counter, AusCounter) {
+        var edigitText = document.createTextNode(digito);
+
+        //var digitoItem = document.getElementById("container");
+        var digitoItem = document.getElementById("d"+Ec);
+
+        var evenDigits = document.createElement("div");
+        evenDigits.setAttribute("class", "evenDigits");
+
+        var eDigits = document.createElement("div");
+        eDigits.setAttribute("class", "eDigits");
+        var edigitText = document.createTextNode( Ec+`${digito}` );
+        eDigits.appendChild(edigitText);
+
+        var ePosition = document.createElement("div");
+        if (AusCounter >= 10) {
+          ePosition.setAttribute("class", "oPosition");
+        } else {
+          ePosition.setAttribute("class", "ePosition");
+        }
+
+        var ePostxt = document.createTextNode(AusCounter);
+        ePosition.appendChild(ePostxt);
+
+        evenDigits.appendChild(eDigits);
+        evenDigits.appendChild(ePosition);
+        digitoItem.appendChild(evenDigits);
+      }
+
+      function AñadirDigitsO(digito,dualPosO, Oc, counter, AusCounter) {
+        //var digitoItemO = document.getElementById("container");
+        var digitoItemO = document.getElementById("d"+Oc);
+
+        var oddDigits = document.createElement("div");
+        oddDigits.setAttribute("class", "oddDigits");
+
+        var oDigits = document.createElement("div");
+        oDigits.setAttribute("class", "oDigits");
+        var odigitText = document.createTextNode(Oc+`${digito}` );
+        oDigits.appendChild(odigitText);
+
+        var oPosition = document.createElement("div");
+        if (AusCounter >= 10) {
+          oPosition.setAttribute("class", "oPosition");
+        } else {
+          oPosition.setAttribute("class", "ePosition");
+        }
+        var oPostxt = document.createTextNode(AusCounter);
+        oPosition.appendChild(oPostxt);
+
+        oddDigits.appendChild(oDigits);
+        oddDigits.appendChild(oPosition);
+
+        digitoItemO.appendChild(oddDigits);
+      }
+
+      if (isScrolledToBottom) {
+        //  out.scrollLeft = out.scrollWidth - out.clientWidth;
+        out.scrollTop = out.scrollHeight + out.clientHeight;
+      } else {
+      }
+
+
+
+
+
+    };
+  </script>
+</body>
