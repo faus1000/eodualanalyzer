@@ -5,12 +5,13 @@
   <link rel="icon" type="image/x-icon" href="./favicon.png" />
   <script src="./main.js"></script>
   <!-- MARK: Depende del archivo -->
-  <title>EO Dual Anazlyzer - V100 by @faus369</title>
+  <title>EO Anazlyzer Lite - V100 by @faus369</title>
   <style>
     /* width */
     ::-webkit-scrollbar {
       height: 6px;
     }
+    
 
     /* Track */
     ::-webkit-scrollbar-track {
@@ -122,33 +123,26 @@
             border: 0px;
     }
     #container {
-     
-    margin: 0px;
-    display: block;
+      margin: 0px;
     min-width: 200px;
-    overflow-y: hidden;
-    /* justify-content: center; */
     position: absolute;
-    overflow-x: visible;
       
     }
     #precontainer{
-      display: flex;
-    flex-wrap: nowrap;
-    justify-content: right;
-    overflow-y: hidden;
-    /* position: absolute; */
-    overflow-x: auto;
+       display: inline-flex;
+            flex-wrap: nowrap;
+            justify-content: right;
+            overflow-y: hidden;
+            overflow-x: auto;
     }
 
     #content{
-          /* display: flex; */
-    justify-content: right;
-    flex-wrap: nowrap;
-    height: 246px;
-    /* width: auto; */
-    /* background-color: yellow; */
-    /* min-width: 420px; */
+      justify-content: right;
+      flex-wrap: nowrap;
+      height: 246px;
+      width: auto;
+      /*background-color: yellow;*/
+      min-width: 420px;
     }
 #digts{
   width: 24px;
@@ -196,7 +190,7 @@
     border: 0px;
     display: block;
     padding: 0px;
-    min-width:60px;
+    min-width: 60px;
     width: 100%;
     }
   </style>
@@ -205,36 +199,36 @@
 <body>
   <div id="container">
     <div id="precontainer">
-      <div id="content">
-  
-        <div id="d9"></div>
-        <div id="d8"></div>
-        <div id="d7"></div>
-        <div id="d6"></div>
-        <div id="d5"></div>
-        <div id="d4"></div>
-        <div id="d3"></div>
-        <div id="d2"></div>
-        <div id="d1"></div>
-        <div id="d0"></div>
-      </div>
-      <div id="digts">
-        <div id="dg9">9</div>
-        <div id="dg8">8</div>
-        <div id="dg7">7</div>
-        <div id="dg6">6</div>
-        <div id="dg5">5</div>
-        <div id="dg4">4</div>
-        <div id="dg3">3</div>
-        <div id="dg2">2</div>
-        <div id="dg1">1</div>
-        <div id="dg0">0</div>
-      </div>
-  
+       <div id="content">
+      
+    <div id="d9"></div>
+    <div id="d8"></div>
+    <div id="d7"></div>
+    <div id="d6"></div>
+    <div id="d5"></div>
+    <div id="d4"></div>
+    <div id="d3"></div>
+    <div id="d2"></div>
+    <div id="d1"></div>
+    <div id="d0"></div>
     </div>
-  
-    <iframe id="framedc" src="./dc.html"></iframe>
-  </div>
+    <div id="digts">
+      <div id="dg9">9</div>
+    <div id="dg8">8</div>
+    <div id="dg7">7</div>
+    <div id="dg6">6</div>
+    <div id="dg5">5</div>
+    <div id="dg4">4</div>
+    <div id="dg3">3</div>
+    <div id="dg2">2</div>
+    <div id="dg1">1</div>
+    <div id="dg0">0</div>
+    </div> 
+    
+    </div>
+   
+   <iframe id="framedc" src="./dc.html"></iframe>
+    
   </div>
 
   <script>
