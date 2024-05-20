@@ -1,0 +1,885 @@
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" type="image/x-icon" href="./fav.png" />
+  <script src="./main.js"></script>
+  <!-- MARK: Depende del archivo -->
+  <title>EO Line - V100 by @faus369</title>
+  <style>
+    /* width */
+    ::-webkit-scrollbar {
+      height: 6px;
+    }
+
+
+    /* Track */
+    ::-webkit-scrollbar-track {
+      box-shadow: transparent;
+      border-radius: 0px;
+      background: #020d1c;
+    }
+
+    /* Handle */
+    ::-webkit-scrollbar-thumb {
+      background: rgba(131, 145, 155, 0.54);
+      border-radius: 10px;
+    }
+
+    /* Handle on hover */
+    ::-webkit-scrollbar-thumb:hover {
+      background: rgba(131, 145, 155, 0.54);
+    }
+
+
+    .egroup {
+      /*    background-color: rgb(0, 255, 34);*/
+      width: auto;
+      height: auto;
+      display: flex;
+    }
+
+    .ogroup {
+      /*   background-color: red;   */
+      width: auto;
+      height: auto;
+      vertical-align: bottom;
+      display: flex;
+    }
+
+
+
+    .eDigits {
+      background-color: rgba(0, 128, 0, 0.35);
+      color: #77ff88;
+      font-size: 20;
+      width: 26px;
+      height: 22px;
+      border-radius: 4px 4px 0px 0px;
+      display: flex;
+      justify-content: center;
+      justify-items: center;
+      align-items: center;
+      margin: 0px 1px 0px 0px;
+      /*  el 3er*/
+      border-bottom: 1px solid rgba(82, 229, 255, 0.24);
+    }
+
+    .oDigits {
+      background-color: rgba(219, 41, 41, 0.31);
+      color: #ff8080;
+      font-size: 20;
+      width: 26px;
+      height: 22px;
+      border-radius: 4px 4px 0px 0px;
+      display: flex;
+      justify-content: center;
+      justify-items: center;
+      align-items: center;
+      margin: 0px 1px 0px 0px;
+      border-bottom: 1px solid rgba(82, 229, 255, 0.24);
+    }
+
+    .ePosition {
+      background-color: rgba(2, 96, 185, 0.22);
+      color: rgba(62, 210, 255, 0.8);
+      font-size: 20;
+      width: 26px;
+      height: 22px;
+      border-radius: 0px 0px 4px 4px;
+       display: flex;/*
+      display: none;*/
+      justify-content: center;
+      justify-items: center;
+      align-items: center;
+      margin: 0px 1px 4px 0px;
+    }
+
+    /**/
+    .oPosition {
+      background-color: rgba(10, 137, 147, 0.66);
+      color: rgba(226, 255, 252, 0.8);
+      font-size: 20;
+      width: 26px;
+      height: 22px;
+      border-radius: 0px 0px 4px 4px;
+      display: flex;/*
+      display: none;*/
+      justify-content: center;
+      justify-items: center;
+      align-items: center;
+      margin: 0px 1px 4px 0px;
+    }
+
+    body {
+      background-color: #0b0f29;
+      overflow-y: hidden;
+      overflow-x: auto;
+      /* 
+     position: absolute; 
+      display: flex;
+      justify-content: right;*/
+      margin: 0px;
+      padding: 0px;
+      border: 0px;
+    }
+
+    #container {
+      margin: 0px;
+      min-width: 200px;
+      position: absolute;
+
+    }
+
+    #precontainer {
+      display: inline-flex;
+      flex-wrap: nowrap;
+      justify-content: right;
+      overflow-y: hidden;
+      overflow-x: auto;
+      /*height: 24px;*/
+    }
+
+    #content {
+      justify-content: right;
+      flex-wrap: nowrap;
+      height: 246px;
+      width: auto;
+      /*background-color: yellow;*/
+      min-width: 420px;
+    }
+
+    #digts {
+      width: 24px;
+      height: 246px;
+      /*background-color: rgb(20, 57, 104);*/
+    }
+
+    #d0,
+    #d1,
+    #d2,
+    #d3,
+    #d4,
+    #d5,
+    #d6,
+    #d7,
+    #d8,
+    #d9 {
+      display: flex;
+      flex-wrap: nowrap;
+      justify-content: right;
+      height: 24px;
+    }
+
+    #dg0,
+    #dg1,
+    #dg2,
+    #dg3,
+    #dg4,
+    #dg5,
+    #dg6,
+    #dg7,
+    #dg8,
+    #dg9 {
+      display: flex;
+      flex-wrap: nowrap;
+      justify-content: center;
+      align-items: center;
+      height: 24px;
+      width: 24px;
+      color: white;
+      font-size: 16;
+
+    }
+
+    .light {
+      background-color: #3399ff;
+    }
+
+    .dark {
+      background-color: #0b0f29;
+    }
+
+    #framedc {
+      height: 48px;
+      margin: 0px;
+      border: 0px;
+      display: block;
+      padding: 0px;
+      min-width: 60px;
+      width: 100%;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="container">
+    <iframe id="framedc" src="./dc.html"></iframe>
+    <div id="precontainer">
+      <div id="content">
+
+        <div id="d9"></div>
+        <div id="d8"></div>
+        <div id="d7"></div>
+        <div id="d6"></div>
+        <div id="d5"></div>
+        <div id="d4"></div>
+        <div id="d3"></div>
+        <div id="d2"></div>
+        <div id="d1"></div>
+        <div id="d0"></div>
+      </div>
+      <div id="digts">
+        <div id="dg9">9</div>
+        <div id="dg8">8</div>
+        <div id="dg7">7</div>
+        <div id="dg6">6</div>
+        <div id="dg5">5</div>
+        <div id="dg4">4</div>
+        <div id="dg3">3</div>
+        <div id="dg2">2</div>
+        <div id="dg1">1</div>
+        <div id="dg0">0</div>
+      </div>
+
+    </div>
+
+   
+
+  </div>
+
+  <script>
+    var out = document.body;
+    //==============================================================
+
+    // var arr1 = [];
+    //  var arr2 = [];
+    //   arr2[0] = 0;
+    // var listC = [];
+    var porcentList = [];
+    periods = 25;
+
+    var eCounter = 0;
+    var oCounter = 0;
+
+    var symbol = "R_100";
+    var decimals = 2;
+    var contador = 0;
+
+    //========================================== Ontick
+    var co0 = 0;
+    var co1 = 0;
+    var co2 = 0;
+    var co3 = 0;
+    var co4 = 0;
+    var co5 = 0;
+    var co6 = 0;
+    var co7 = 0;
+    var co8 = 0;
+    var co9 = 0;
+
+    var ws = new WebSocket("wss://ws.binaryws.com/websockets/v3?app_id=1089");
+
+    ws.onopen = function (evt) {
+      ws.send(JSON.stringify({ ticks: symbol }));
+    };
+
+    var addOGroup = false;
+    var addEGroup = false;
+    var AusData = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+
+    var one = 0;
+    var ResData = [0, 0];
+    //  var DiferencePatterns = [];
+    var NegDiferenceColor = "rgba(255,0, 0, 0.84)";
+    var PosDiferenceColor = "rgba(89,255, 232, 0.75)";
+
+    let dg = [];
+    let dst = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+
+
+
+    ws.onmessage = function (msg) {
+      contador++;
+      var data = JSON.parse(msg.data);
+      var digit = Number(data.tick.quote).toFixed(decimals).slice(-1);
+
+      var isScrolledToBottom = out.scrollWidth - out.clientWidth <= out.scrollLeft + 1;
+      dg.push(Number(digit));
+
+
+
+
+
+      ResData[1] = digit;
+      ResData[0] = one;
+      one = digit;
+      var diferencias = ResData[1] - ResData[0];
+
+
+      if (digit == 9) {
+        document.getElementById("dg0").setAttribute("class", "dark");
+        document.getElementById("dg1").setAttribute("class", "dark");
+        document.getElementById("dg2").setAttribute("class", "dark");
+        document.getElementById("dg3").setAttribute("class", "dark");
+        document.getElementById("dg4").setAttribute("class", "dark");
+        document.getElementById("dg5").setAttribute("class", "dark");
+        document.getElementById("dg6").setAttribute("class", "dark");
+        document.getElementById("dg7").setAttribute("class", "dark");
+        document.getElementById("dg8").setAttribute("class", "dark");
+        document.getElementById("dg9").setAttribute("class", "light");//para la luz del 9
+        document.getElementById("dg0").style.display = "none";
+        document.getElementById("dg1").style.display = "none";
+        document.getElementById("dg2").style.display = "none";
+        document.getElementById("dg3").style.display = "none";
+        document.getElementById("dg4").style.display = "none";
+        document.getElementById("dg5").style.display = "none";
+        document.getElementById("dg6").style.display = "none";
+        document.getElementById("dg7").style.display = "none";
+        document.getElementById("dg8").style.display = "none";
+        document.getElementById("dg9").style.display = "flex";
+        AusData[9] = co9;
+        AusData[9] = co9;
+        co9 = 0;
+      } else {
+        co9++;
+      }
+      if (digit == 8) {
+        document.getElementById("dg0").setAttribute("class", "dark");
+        document.getElementById("dg1").setAttribute("class", "dark");
+        document.getElementById("dg2").setAttribute("class", "dark");
+        document.getElementById("dg3").setAttribute("class", "dark");
+        document.getElementById("dg4").setAttribute("class", "dark");
+        document.getElementById("dg5").setAttribute("class", "dark");
+        document.getElementById("dg6").setAttribute("class", "dark");
+        document.getElementById("dg7").setAttribute("class", "dark");
+        document.getElementById("dg8").setAttribute("class", "light");
+        document.getElementById("dg9").setAttribute("class", "dark");
+        document.getElementById("dg0").style.display = "none";
+        document.getElementById("dg1").style.display = "none";
+        document.getElementById("dg2").style.display = "none";
+        document.getElementById("dg3").style.display = "none";
+        document.getElementById("dg4").style.display = "none";
+        document.getElementById("dg5").style.display = "none";
+        document.getElementById("dg6").style.display = "none";
+        document.getElementById("dg7").style.display = "none";
+        document.getElementById("dg8").style.display = "flex";
+        document.getElementById("dg9").style.display = "none";
+        document.getElementById("d0").style.display = "none";
+        document.getElementById("d1").style.display = "none";
+        document.getElementById("d2").style.display = "none";
+        document.getElementById("d3").style.display = "none";
+        document.getElementById("d4").style.display = "none";
+        document.getElementById("d5").style.display = "none";
+        document.getElementById("d6").style.display = "none";
+        document.getElementById("d7").style.display = "none";
+        document.getElementById("d8").style.display = "flex";
+        document.getElementById("d9").style.display = "none";
+        AusData[8] = co8;
+        co8 = 0;
+      } else {
+        co8++;
+      }
+      if (digit == 7) {
+        document.getElementById("dg0").setAttribute("class", "dark");
+        document.getElementById("dg1").setAttribute("class", "dark");
+        document.getElementById("dg2").setAttribute("class", "dark");
+        document.getElementById("dg3").setAttribute("class", "dark");
+        document.getElementById("dg4").setAttribute("class", "dark");
+        document.getElementById("dg5").setAttribute("class", "dark");
+        document.getElementById("dg6").setAttribute("class", "dark");
+        document.getElementById("dg7").setAttribute("class", "light");
+        document.getElementById("dg8").setAttribute("class", "dark");
+        document.getElementById("dg9").setAttribute("class", "dark");
+        document.getElementById("dg0").style.display = "none";
+        document.getElementById("dg1").style.display = "none";
+        document.getElementById("dg2").style.display = "none";
+        document.getElementById("dg3").style.display = "none";
+        document.getElementById("dg4").style.display = "none";
+        document.getElementById("dg5").style.display = "none";
+        document.getElementById("dg6").style.display = "none";
+        document.getElementById("dg7").style.display = "flex";
+        document.getElementById("dg8").style.display = "none";
+        document.getElementById("dg9").style.display = "none";
+        document.getElementById("d0").style.display = "none";
+        document.getElementById("d1").style.display = "none";
+        document.getElementById("d2").style.display = "none";
+        document.getElementById("d3").style.display = "none";
+        document.getElementById("d4").style.display = "none";
+        document.getElementById("d5").style.display = "none";
+        document.getElementById("d6").style.display = "none";
+        document.getElementById("d7").style.display = "flex";
+        document.getElementById("d8").style.display = "none";
+        document.getElementById("d9").style.display = "none";
+        AusData[7] = co7;
+        co7 = 0;
+      } else {
+        co7++;
+      }
+      if (digit == 6) {
+        document.getElementById("dg0").setAttribute("class", "dark");
+        document.getElementById("dg1").setAttribute("class", "dark");
+        document.getElementById("dg2").setAttribute("class", "dark");
+        document.getElementById("dg3").setAttribute("class", "dark");
+        document.getElementById("dg4").setAttribute("class", "dark");
+        document.getElementById("dg5").setAttribute("class", "dark");
+        document.getElementById("dg6").setAttribute("class", "light");
+        document.getElementById("dg7").setAttribute("class", "dark");
+        document.getElementById("dg8").setAttribute("class", "dark");
+        document.getElementById("dg9").setAttribute("class", "dark");
+        document.getElementById("dg0").style.display = "none";
+        document.getElementById("dg1").style.display = "none";
+        document.getElementById("dg2").style.display = "none";
+        document.getElementById("dg3").style.display = "none";
+        document.getElementById("dg4").style.display = "none";
+        document.getElementById("dg5").style.display = "none";
+        document.getElementById("dg6").style.display = "flex";
+        document.getElementById("dg7").style.display = "none";
+        document.getElementById("dg8").style.display = "none";
+        document.getElementById("dg9").style.display = "none";
+        document.getElementById("d0").style.display = "none";
+        document.getElementById("d1").style.display = "none";
+        document.getElementById("d2").style.display = "none";
+        document.getElementById("d3").style.display = "none";
+        document.getElementById("d4").style.display = "none";
+        document.getElementById("d5").style.display = "none";
+        document.getElementById("d6").style.display = "flex";
+        document.getElementById("d7").style.display = "none";
+        document.getElementById("d8").style.display = "none";
+        document.getElementById("d9").style.display = "none";
+
+        AusData[6] = co6;
+        co6 = 0;
+      } else {
+        co6++;
+      }
+      if (digit == 5) {
+        document.getElementById("dg0").setAttribute("class", "dark");
+        document.getElementById("dg1").setAttribute("class", "dark");
+        document.getElementById("dg2").setAttribute("class", "dark");
+        document.getElementById("dg3").setAttribute("class", "dark");
+        document.getElementById("dg4").setAttribute("class", "dark");
+        document.getElementById("dg5").setAttribute("class", "light");
+        document.getElementById("dg6").setAttribute("class", "dark");
+        document.getElementById("dg7").setAttribute("class", "dark");
+        document.getElementById("dg8").setAttribute("class", "dark");
+        document.getElementById("dg9").setAttribute("class", "dark");
+        document.getElementById("dg0").style.display = "none";
+        document.getElementById("dg1").style.display = "none";
+        document.getElementById("dg2").style.display = "none";
+        document.getElementById("dg3").style.display = "none";
+        document.getElementById("dg4").style.display = "none";
+        document.getElementById("dg5").style.display = "flex";
+        document.getElementById("dg6").style.display = "none";
+        document.getElementById("dg7").style.display = "none";
+        document.getElementById("dg8").style.display = "none";
+        document.getElementById("dg9").style.display = "none";
+        document.getElementById("d0").style.display = "none";
+        document.getElementById("d1").style.display = "none";
+        document.getElementById("d2").style.display = "none";
+        document.getElementById("d3").style.display = "none";
+        document.getElementById("d4").style.display = "none";
+        document.getElementById("d5").style.display = "flex";
+        document.getElementById("d6").style.display = "none";
+        document.getElementById("d7").style.display = "none";
+        document.getElementById("d8").style.display = "none";
+        document.getElementById("d9").style.display = "none";
+        AusData[5] = co5;
+        co5 = 0;
+      } else {
+        co5++;
+      }
+      if (digit == 4) {
+        document.getElementById("dg0").setAttribute("class", "dark");
+        document.getElementById("dg1").setAttribute("class", "dark");
+        document.getElementById("dg2").setAttribute("class", "dark");
+        document.getElementById("dg3").setAttribute("class", "dark");
+        document.getElementById("dg4").setAttribute("class", "light");
+        document.getElementById("dg5").setAttribute("class", "dark");
+        document.getElementById("dg6").setAttribute("class", "dark");
+        document.getElementById("dg7").setAttribute("class", "dark");
+        document.getElementById("dg8").setAttribute("class", "dark");
+        document.getElementById("dg9").setAttribute("class", "dark");
+        document.getElementById("dg0").style.display = "none";
+        document.getElementById("dg1").style.display = "none";
+        document.getElementById("dg2").style.display = "none";
+        document.getElementById("dg3").style.display = "none";
+        document.getElementById("dg4").style.display = "flex";
+        document.getElementById("dg5").style.display = "none";
+        document.getElementById("dg6").style.display = "none";
+        document.getElementById("dg7").style.display = "none";
+        document.getElementById("dg8").style.display = "none";
+        document.getElementById("dg9").style.display = "none";
+        document.getElementById("d0").style.display = "none";
+        document.getElementById("d1").style.display = "none";
+        document.getElementById("d2").style.display = "none";
+        document.getElementById("d3").style.display = "none";
+        document.getElementById("d4").style.display = "flex";
+        document.getElementById("d5").style.display = "none";
+        document.getElementById("d6").style.display = "none";
+        document.getElementById("d7").style.display = "none";
+        document.getElementById("d8").style.display = "none";
+        document.getElementById("d9").style.display = "none";
+        AusData[4] = co4;
+        co4 = 0;
+      } else {
+        co4++;
+      }
+      if (digit == 3) {
+        document.getElementById("dg0").setAttribute("class", "dark");
+        document.getElementById("dg1").setAttribute("class", "dark");
+        document.getElementById("dg2").setAttribute("class", "dark");
+        document.getElementById("dg3").setAttribute("class", "light");
+        document.getElementById("dg4").setAttribute("class", "dark");
+        document.getElementById("dg5").setAttribute("class", "dark");
+        document.getElementById("dg6").setAttribute("class", "dark");
+        document.getElementById("dg7").setAttribute("class", "dark");
+        document.getElementById("dg8").setAttribute("class", "dark");
+        document.getElementById("dg9").setAttribute("class", "dark");
+        document.getElementById("dg0").style.display = "none";
+        document.getElementById("dg1").style.display = "none";
+        document.getElementById("dg2").style.display = "none";
+        document.getElementById("dg3").style.display = "flex";
+        document.getElementById("dg4").style.display = "none";
+        document.getElementById("dg5").style.display = "none";
+        document.getElementById("dg6").style.display = "none";
+        document.getElementById("dg7").style.display = "none";
+        document.getElementById("dg8").style.display = "none";
+        document.getElementById("dg9").style.display = "none";
+        document.getElementById("d0").style.display = "none";
+        document.getElementById("d1").style.display = "none";
+        document.getElementById("d2").style.display = "none";
+        document.getElementById("d3").style.display = "flex";
+        document.getElementById("d4").style.display = "none";
+        document.getElementById("d5").style.display = "none";
+        document.getElementById("d6").style.display = "none";
+        document.getElementById("d7").style.display = "none";
+        document.getElementById("d8").style.display = "none";
+        document.getElementById("d9").style.display = "none";
+        AusData[3] = co3;
+        co3 = 0;
+      } else {
+        co3++;
+      }
+      if (digit == 2) {
+        document.getElementById("dg0").setAttribute("class", "dark");
+        document.getElementById("dg1").setAttribute("class", "dark");
+        document.getElementById("dg2").setAttribute("class", "light");
+        document.getElementById("dg3").setAttribute("class", "dark");
+        document.getElementById("dg4").setAttribute("class", "dark");
+        document.getElementById("dg5").setAttribute("class", "dark");
+        document.getElementById("dg6").setAttribute("class", "dark");
+        document.getElementById("dg7").setAttribute("class", "dark");
+        document.getElementById("dg8").setAttribute("class", "dark");
+        document.getElementById("dg9").setAttribute("class", "dark");
+        document.getElementById("dg0").style.display = "none";
+        document.getElementById("dg1").style.display = "none";
+        document.getElementById("dg2").style.display = "flex";
+        document.getElementById("dg3").style.display = "none";
+        document.getElementById("dg4").style.display = "none";
+        document.getElementById("dg5").style.display = "none";
+        document.getElementById("dg6").style.display = "none";
+        document.getElementById("dg7").style.display = "none";
+        document.getElementById("dg8").style.display = "none";
+        document.getElementById("dg9").style.display = "none";
+        document.getElementById("d0").style.display = "none";
+        document.getElementById("d1").style.display = "none";
+        document.getElementById("d2").style.display = "flex";
+        document.getElementById("d3").style.display = "none";
+        document.getElementById("d4").style.display = "none";
+        document.getElementById("d5").style.display = "none";
+        document.getElementById("d6").style.display = "none";
+        document.getElementById("d7").style.display = "none";
+        document.getElementById("d8").style.display ="none"; 
+        document.getElementById("d9").style.display = "none";
+        AusData[2] = co2;
+        co2 = 0;
+      } else {
+        co2++;
+      }
+      if (digit == 1) {
+        document.getElementById("dg0").setAttribute("class", "dark");
+        document.getElementById("dg1").setAttribute("class", "light");
+        document.getElementById("dg2").setAttribute("class", "dark");
+        document.getElementById("dg3").setAttribute("class", "dark");
+        document.getElementById("dg4").setAttribute("class", "dark");
+        document.getElementById("dg5").setAttribute("class", "dark");
+        document.getElementById("dg6").setAttribute("class", "dark");
+        document.getElementById("dg7").setAttribute("class", "dark");
+        document.getElementById("dg8").setAttribute("class", "dark");
+        document.getElementById("dg9").setAttribute("class", "dark");
+        document.getElementById("dg0").style.display = "none";
+        document.getElementById("dg1").style.display = "flex";
+        document.getElementById("dg2").style.display = "none";
+        document.getElementById("dg3").style.display = "none";
+        document.getElementById("dg4").style.display = "none";
+        document.getElementById("dg5").style.display = "none";
+        document.getElementById("dg6").style.display = "none";
+        document.getElementById("dg7").style.display = "none";
+        document.getElementById("dg8").style.display = "none";
+        document.getElementById("dg9").style.display = "none";
+        document.getElementById("d0").style.display = "none";
+        document.getElementById("d1").style.display ="flex";
+        document.getElementById("d2").style.display = "none";
+        document.getElementById("d3").style.display = "none";
+        document.getElementById("d4").style.display = "none";
+        document.getElementById("d5").style.display = "none";
+        document.getElementById("d6").style.display = "none";
+        document.getElementById("d7").style.display = "none";
+        document.getElementById("d8").style.display =  "none";
+        document.getElementById("d9").style.display = "none";
+        AusData[1] = co1;
+        co1 = 0;
+      } else {
+        co1++;
+      }
+
+      if (digit == 0) {
+        document.getElementById("dg0").setAttribute("class", "light");
+        document.getElementById("dg1").setAttribute("class", "dark");
+        document.getElementById("dg2").setAttribute("class", "dark");
+        document.getElementById("dg3").setAttribute("class", "dark");
+        document.getElementById("dg4").setAttribute("class", "dark");
+        document.getElementById("dg5").setAttribute("class", "dark");
+        document.getElementById("dg6").setAttribute("class", "dark");
+        document.getElementById("dg7").setAttribute("class", "dark");
+        document.getElementById("dg8").setAttribute("class", "dark");
+        document.getElementById("dg9").setAttribute("class", "dark");
+        document.getElementById("dg0").style.display = "flex";
+        document.getElementById("dg1").style.display = "none";
+        document.getElementById("dg2").style.display = "none";
+        document.getElementById("dg3").style.display = "none";
+        document.getElementById("dg4").style.display = "none";
+        document.getElementById("dg5").style.display = "none";
+        document.getElementById("dg6").style.display = "none";
+        document.getElementById("dg7").style.display = "none";
+        document.getElementById("dg8").style.display = "none";
+        document.getElementById("dg9").style.display = "none";
+        document.getElementById("d0").style.display = "flex";
+        document.getElementById("d1").style.display = "none";
+        document.getElementById("d2").style.display = "none";
+        document.getElementById("d3").style.display = "none";
+        document.getElementById("d4").style.display = "none";
+        document.getElementById("d5").style.display = "none";
+        document.getElementById("d6").style.display = "none";
+        document.getElementById("d7").style.display = "none";
+        document.getElementById("d8").style.display = "none";
+        document.getElementById("d9").style.display = "none";
+        AusData[0] = co0;
+        co0 = 0;
+      } else {
+        co0++;
+      }
+
+
+
+
+
+
+      if (dg.length > 3) {
+        dg.shift();
+      }
+
+
+
+      var ultimosdual = dg.slice(-2);
+      if (ultimosdual.length > 1) {
+
+        //para digitos 0;
+        if (ultimosdual[0] == 0) {
+
+          if (ultimosdual[1] % 2 == 0) {
+            //le sigue un par         
+            AñadirDigitsE(digit, "E", dg[dg.length - 2], contador, AusData[dg[dg.length - 2]]);
+          } else {
+            //le sigue un impar
+            AñadirDigitsO(digit, "O", dg[dg.length - 2], contador, AusData[dg[dg.length - 2]]);
+          }
+
+        }
+        //Para digitos 1;
+        if (ultimosdual[0] == 1) {
+
+          if (ultimosdual[1] % 2 == 0) {
+            //le sigue un par
+            AñadirDigitsE(digit, "E", dg[dg.length - 2], contador, AusData[dg[dg.length - 2]]);
+
+          } else {
+            //le sigue un impar
+            AñadirDigitsO(digit, "O", dg[dg.length - 2], contador, AusData[dg[dg.length - 2]]);
+
+          }
+
+        }
+        // Para digitos 2;
+        if (ultimosdual[0] == 2) {
+          if (ultimosdual[1] % 2 == 0) {
+            //le sigue un par
+            AñadirDigitsE(digit, "E", dg[dg.length - 2], contador, AusData[dg[dg.length - 2]]);
+
+          } else {
+            //le sigue un impar
+            AñadirDigitsO(digit, "O", dg[dg.length - 2], contador, AusData[dg[dg.length - 2]]);
+
+          }
+        }
+        // Para digitos 3;
+        if (ultimosdual[0] == 3) {
+          if (ultimosdual[1] % 2 == 0) {
+            //le sigue un par
+            AñadirDigitsE(digit, "E", dg[dg.length - 2], contador, AusData[dg[dg.length - 2]]);
+
+          } else {
+            //le sigue un impar
+            AñadirDigitsO(digit, "O", dg[dg.length - 2], contador, AusData[dg[dg.length - 2]]);
+
+          }
+        }
+        // Para digitos 4;
+        if (ultimosdual[0] == 4) {
+          if (ultimosdual[1] % 2 == 0) {
+            //le sigue un par
+            AñadirDigitsE(digit, "E", dg[dg.length - 2], contador, AusData[dg[dg.length - 2]]);
+
+          } else {
+            //le sigue un impar
+            AñadirDigitsO(digit, "O", dg[dg.length - 2], contador, AusData[dg[dg.length - 2]]);
+
+          }
+        }
+        // Para digitos 5;
+        if (ultimosdual[0] == 5) {
+          if (ultimosdual[1] % 2 == 0) {
+            //le sigue un par
+            AñadirDigitsE(digit, "E", dg[dg.length - 2], contador, AusData[dg[dg.length - 2]]);
+
+          } else {
+            //le sigue un impar
+            AñadirDigitsO(digit, "O", dg[dg.length - 2], contador, AusData[dg[dg.length - 2]]);
+
+          }
+        }
+        // Para digitos 6;
+        if (ultimosdual[0] == 6) {
+          if (ultimosdual[1] % 2 == 0) {
+            //le sigue un par
+            AñadirDigitsE(digit, "E", dg[dg.length - 2], contador, AusData[dg[dg.length - 2]]);
+
+          } else {
+            //le sigue un impar
+            AñadirDigitsO(digit, "O", dg[dg.length - 2], contador, AusData[dg[dg.length - 2]]);
+
+          }
+        }
+        // Para digitos 7;
+        if (ultimosdual[0] == 7) {
+          if (ultimosdual[1] % 2 == 0) {
+            //le sigue un par
+            AñadirDigitsE(digit, "E", dg[dg.length - 2], contador, AusData[dg[dg.length - 2]]);
+
+          } else {
+            //le sigue un impar
+            AñadirDigitsO(digit, "O", dg[dg.length - 2], contador, AusData[dg[dg.length - 2]]);
+
+          }
+        }
+
+        // Para digitos 8;
+        if (ultimosdual[0] == 8) {
+          if (ultimosdual[1] % 2 == 0) {
+            //le sigue un par
+            AñadirDigitsE(digit, "E", dg[dg.length - 2], contador, AusData[dg[dg.length - 2]]);
+
+          } else {
+            //le sigue un impar
+            AñadirDigitsO(digit, "O", dg[dg.length - 2], contador, AusData[dg[dg.length - 2]]);
+
+          }
+        }
+        // Para digitos 9;
+        if (ultimosdual[0] == 9) {
+          if (ultimosdual[1] % 2 == 0) {
+            //le sigue un par
+            AñadirDigitsE(digit, "E", dg[dg.length - 2], contador, AusData[dg[dg.length - 2]]);
+
+          } else {
+            //le sigue un impar
+            AñadirDigitsO(digit, "O", dg[dg.length - 2], contador, AusData[dg[dg.length - 2]]);
+
+          }
+        }
+
+      }
+
+      // MARK: Creando la interface
+
+      function AñadirDigitsE(digito, dualPosE, Ec, counter, AusCounter) {
+        var edigitText = document.createTextNode(digito);
+
+        //var digitoItem = document.getElementById("container");
+        var digitoItem = document.getElementById("d" + Ec);
+
+        var evenDigits = document.createElement("div");
+        evenDigits.setAttribute("class", "evenDigits");
+
+        var eDigits = document.createElement("div");
+        eDigits.setAttribute("class", "eDigits");
+        var edigitText = document.createTextNode(`E`);
+        eDigits.appendChild(edigitText);
+
+        var ePosition = document.createElement("div");
+        if (AusCounter >= 10) {
+          ePosition.setAttribute("class", "oPosition");
+        } else {
+          ePosition.setAttribute("class", "ePosition");
+        }
+
+        var ePostxt = document.createTextNode(AusCounter);
+        ePosition.appendChild(ePostxt);
+
+        evenDigits.appendChild(eDigits);
+        evenDigits.appendChild(ePosition);
+        digitoItem.appendChild(evenDigits);
+      }
+
+
+      function AñadirDigitsO(digito, dualPosO, Oc, counter, AusCounter) {
+        //var digitoItemO = document.getElementById("container");
+        var digitoItemO = document.getElementById("d" + Oc);
+
+        var oddDigits = document.createElement("div");
+        oddDigits.setAttribute("class", "oddDigits");
+
+        var oDigits = document.createElement("div");
+        oDigits.setAttribute("class", "oDigits");
+        var odigitText = document.createTextNode(`O`);
+        oDigits.appendChild(odigitText);
+
+        var oPosition = document.createElement("div");
+        if (AusCounter >= 10) {
+          oPosition.setAttribute("class", "oPosition");
+        } else {
+          oPosition.setAttribute("class", "ePosition");
+        }
+        var oPostxt = document.createTextNode(AusCounter);
+        oPosition.appendChild(oPostxt);
+
+        oddDigits.appendChild(oDigits);
+        oddDigits.appendChild(oPosition);
+
+        digitoItemO.appendChild(oddDigits);
+
+
+      }
+
+
+      if (isScrolledToBottom) {
+        out.scrollLeft = out.scrollWidth - out.clientWidth;
+
+      } else {
+
+      }
+
+    }
+  </script>
+</body>
