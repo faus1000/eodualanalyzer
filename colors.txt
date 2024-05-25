@@ -1,0 +1,16 @@
+go 
+t FFC6C6
+f C92E2E
+
+ge
+tDEFFE1
+f 00950F
+
+uo
+t060606
+fFC4747
+
+
+ue
+t 1E1E1E
+f 00D770
