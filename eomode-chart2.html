@@ -1,0 +1,398 @@
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" type="image/x-icon" href="./fav.png" />
+  <script src="./main.js"></script>
+  <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+  <!-- MARK: Depende del archivo -->
+  <title>EOLine Chart2 - V100 by @faus369</title>
+  <style>
+    /* width */
+    ::-webkit-scrollbar {
+      height: 6px;
+    }
+
+
+    /* Track */
+    ::-webkit-scrollbar-track {
+      box-shadow: transparent;
+      border-radius: 0px;
+      background: #020d1c;
+    }
+
+    /* Handle */
+    ::-webkit-scrollbar-thumb {
+      background: rgba(131, 145, 155, 0.54);
+      border-radius: 10px;
+    }
+
+    /* Handle on hover */
+    ::-webkit-scrollbar-thumb:hover {
+      background: rgba(131, 145, 155, 0.54);
+    }
+
+
+    .egroup {
+      /*    background-color: rgb(0, 255, 34);*/
+      width: auto;
+      height: auto;
+      display: flex;
+    }
+
+    .ogroup {
+      /*   background-color: red;   */
+      width: auto;
+      height: auto;
+      vertical-align: bottom;
+      display: flex;
+    }
+
+
+
+    .eDigits {
+      background-color: rgba(0, 128, 0, 0.35);
+      color: #77ff88;
+      font-size: 20;
+      width: 26px;
+      height: 22px;
+      border-radius: 4px 4px 0px 0px;
+      display: flex;
+      justify-content: center;
+      justify-items: center;
+      align-items: center;
+      margin: 0px 1px 0px 0px;
+      /*  el 3er*/
+      border-bottom: 1px solid rgba(82, 229, 255, 0.24);
+    }
+
+    .oDigits {
+      background-color: rgba(219, 41, 41, 0.31);
+      color: #ff8080;
+      font-size: 20;
+      width: 26px;
+      height: 22px;
+      border-radius: 4px 4px 0px 0px;
+      display: flex;
+      justify-content: center;
+      justify-items: center;
+      align-items: center;
+      margin: 0px 1px 0px 0px;
+      border-bottom: 1px solid rgba(82, 229, 255, 0.24);
+    }
+
+ 
+
+    body {
+      background-color: #0b0f29;
+      overflow-y: hidden;
+      overflow-x: auto;
+      
+      display: flex;
+      justify-content:center; 
+      align-items: center;
+      margin: 0px;
+      padding: 0px;
+      border: 0px;
+
+    }
+
+    #container {
+      margin: 0px;
+      min-width: 200px;
+     /* position: absolute;*/
+     width: 480px;
+
+    }
+
+    #precontainer {
+      display: inline-flex;
+      flex-wrap: nowrap;
+      justify-content: right;
+      overflow-y: hidden;
+      overflow-x: auto;
+      height: 24px;/**/
+      width: 480px;
+    }
+
+   
+
+
+    #framedc {
+      height: 26px;
+      margin: 0px;
+      border: 0px;
+      display: block;
+      padding: 0px;
+      min-width: 60px;
+      width: 100%;
+    }
+    #framegv{
+     height: 30px;
+    margin: 0px;
+    border: 0px;
+    display: block;
+    padding: 0px;
+    min-width: 400px;
+    width: 100%;
+    }
+    #chartContainer {
+      height: 360px;
+      width: 480px; 
+    }
+  </style>
+</head>
+
+<body>
+  <div id="container">
+    <div id="chartContainer"></div>
+    <iframe id="framedc" src="./dc.html"></iframe>
+
+   <iframe id="framegv" src="./gv2.html"></iframe>
+   <!-- <iframe id="framegv" src="./gv.html"></iframe> -->
+
+  </div>
+  
+  <script>
+    var out = document.body;
+    //==============================================================
+
+    // var arr1 = [];
+    //  var arr2 = [];
+    //   arr2[0] = 0;
+    // var listC = [];
+    var porcentList = [];
+    periods = 25;
+
+    var eCounter = 0;
+    var oCounter = 0;
+
+    var symbol = "R_100";
+    var decimals = 2;
+    var contador = 0;
+
+    //========================================== Ontick
+    var co0 = 0;
+    var co1 = 0;
+    var co2 = 0;
+    var co3 = 0;
+    var co4 = 0;
+    var co5 = 0;
+    var co6 = 0;
+    var co7 = 0;
+    var co8 = 0;
+    var co9 = 0;
+
+    var ws = new WebSocket("wss://ws.binaryws.com/websockets/v3?app_id=1089");
+
+    ws.onopen = function (evt) {
+      ws.send(JSON.stringify({ ticks: symbol }));
+    };
+
+    var dps = [];
+        var dataLength = 60;
+        var chart = new CanvasJS.Chart("chartContainer", {
+            theme: "light2", // "light1", "light2", "dark1", "dark2"
+            animationEnabled: true,
+            backgroundColor: "#020d1c",
+            /* backgroundColor: "#041220",
+            backgroundColor: "#021624", 
+              backgroundColor: "#041220",*/
+            data: [{
+                type: "line",
+                dataPoints: dps
+            }],
+            axisY: {
+                gridColor: "white",
+                gridDashType: "dot",
+                gridThickness: 0.2,
+                labelFontSize: 10,
+
+            },
+            axisX: {
+                gridColor: "white",
+                gridDashType: "dot",
+                gridThickness: 0.2,
+                labelFontSize: 10,
+                tickColor: "#293F56",
+                lineColor: "#293F56"
+                /*labelFontColor: "red"*/
+            }
+        });
+
+
+        var xval = 1;
+        var yval = 1;
+        //var colorline = "";
+        function drawOddEven(yv, dg, mcolor, lcolor) {
+
+            if (dg % 2 == 0) {
+                yval += yv;
+                // colorline = "green"
+            } else {
+                yval -= yv;
+                //colorline = "red"
+            }
+
+            dps.push({
+                x: xval,
+                y: yval,
+                indexLabel: dg,
+                indexLabelFontWeight: "normal",
+                indexLabelFontSize: 14,
+                indexLabelFontColor: lcolor,
+                markerSize: 4,
+                markerType: "circle",
+                markerColor: mcolor,
+                /* lineColor: "#83aad9", 
+                  lineColor: "#22BBE0",
+                  lineColor: "#1BB0E0", */
+                lineColor: "#3399ff",
+                lineDashType: "shortDot",
+                lineThickness: 0.2
+            });
+            xval += 1;
+
+            if (dps.length > dataLength) {
+                dps.shift();
+            }
+            chart.render();
+        }
+
+
+    var addOGroup = false;
+    var addEGroup = false;
+    var AusData = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+
+    var one = 0;
+    var ResData = [0, 0];
+    //  var DiferencePatterns = [];
+    var NegDiferenceColor = "rgba(255,0, 0, 0.84)";
+    var PosDiferenceColor = "rgba(89,255, 232, 0.75)";
+
+    let dg = [];
+    let dst = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+
+
+
+    ws.onmessage = function (msg) {
+      contador++;
+      var data = JSON.parse(msg.data);
+      var digit = Number(data.tick.quote).toFixed(decimals).slice(-1);
+
+      if (digit % 2 == 0) {
+                if (digit == 0) {
+                    drawOddEven(1, digit, "#55af11", "#01a501");
+                } else if (digit == 2) {
+                    drawOddEven(2, digit, "#55af11", "#01a501");
+                } else if (digit == 4) {
+                    drawOddEven(3, digit, "#55af11", "#01a501");
+                } else if (digit == 6) {
+                    drawOddEven(4, digit, "#55af11", "#01a501");
+                } else if (digit == 8) {
+                    drawOddEven(5, digit, "#55af11", "#01a501");
+                }
+
+            } else {
+                if (digit == 1) {
+                    drawOddEven(1, digit, "#f95734", "#f74117");
+                } else if (digit == 3) {
+                    drawOddEven(2, digit, "#f95734", "#f74117");
+                }
+                else if (digit == 5) {
+                    drawOddEven(3, digit, "#f95734", "#f74117");
+                } else if (digit == 7) {
+                    drawOddEven(4, digit, "#f95734", "#f74117");
+                } else if (digit == 9) {
+                    drawOddEven(5, digit, "#f95734", "#f74117");
+                }
+            }
+
+      var isScrolledToBottom = out.scrollWidth - out.clientWidth <= out.scrollLeft + 1;
+      dg.push(Number(digit));
+
+
+
+
+
+      ResData[1] = digit;
+      ResData[0] = one;
+      one = digit;
+  
+
+      if (dg.length > 3) {
+        dg.shift();
+      }
+   
+      // MARK: Creando la interface
+
+      function AñadirDigitsE(digito, dualPosE, Ec, counter, AusCounter) {
+        var edigitText = document.createTextNode(digito);
+
+        //var digitoItem = document.getElementById("container");
+        var digitoItem = document.getElementById("d" + Ec);
+
+        var evenDigits = document.createElement("div");
+        evenDigits.setAttribute("class", "evenDigits");
+
+        var eDigits = document.createElement("div");
+        eDigits.setAttribute("class", "eDigits");
+        var edigitText = document.createTextNode(`E`);
+        eDigits.appendChild(edigitText);
+
+        var ePosition = document.createElement("div");
+        if (AusCounter >= 10) {
+          ePosition.setAttribute("class", "oPosition");
+        } else {
+          ePosition.setAttribute("class", "ePosition");
+        }
+
+        var ePostxt = document.createTextNode(AusCounter);
+        ePosition.appendChild(ePostxt);
+
+        evenDigits.appendChild(eDigits);
+        evenDigits.appendChild(ePosition);
+        digitoItem.appendChild(evenDigits);
+      }
+
+
+      function AñadirDigitsO(digito, dualPosO, Oc, counter, AusCounter) {
+        //var digitoItemO = document.getElementById("container");
+        var digitoItemO = document.getElementById("d" + Oc);
+
+        var oddDigits = document.createElement("div");
+        oddDigits.setAttribute("class", "oddDigits");
+
+        var oDigits = document.createElement("div");
+        oDigits.setAttribute("class", "oDigits");
+        var odigitText = document.createTextNode(`O`);
+        oDigits.appendChild(odigitText);
+
+        var oPosition = document.createElement("div");
+        if (AusCounter >= 10) {
+          oPosition.setAttribute("class", "oPosition");
+        } else {
+          oPosition.setAttribute("class", "ePosition");
+        }
+        var oPostxt = document.createTextNode(AusCounter);
+        oPosition.appendChild(oPostxt);
+
+        oddDigits.appendChild(oDigits);
+        oddDigits.appendChild(oPosition);
+
+        digitoItemO.appendChild(oddDigits);
+
+
+      }
+
+
+      if (isScrolledToBottom) {
+        out.scrollLeft = out.scrollWidth - out.clientWidth;
+
+      } else {
+
+      }
+
+    }
+  </script>
+</body>
