@@ -7,7 +7,7 @@
     <style>
         /* width */
         ::-webkit-scrollbar {
-            width: 10px;
+            width: 4px;
         }
 
         /* Track */
@@ -212,7 +212,7 @@
             var data = JSON.parse(msg.data);
 
             var digit = Number(data.tick.quote).toFixed(decimals).slice(-1);
-            var isScrolledToBottom = out.scrollWidth - out.clientWidth <= out.scrollLeft + 1;
+            var isScrolledToBottom = out.scrollHeight - out.clientHeight <= out.scrollTop + 1;  
             
             ResData[1] = digit;
             ResData[0]= one;
@@ -401,10 +401,12 @@
 
 
             if (isScrolledToBottom) {
-                out.scrollLeft = out.scrollWidth - out.clientWidth;
+                //  out.scrollLeft = out.scrollWidth - out.clientWidth; 
+                out.scrollTop = out.scrollHeight + out.clientHeight;
             } else {
 
             }
+          
 
         }
     </script>

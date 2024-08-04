@@ -3,11 +3,11 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="main.js"></script>
-    <title>Numg view</title>
+    <title>NumGroups Light-Min</title>
     <style>
         /* width */
         ::-webkit-scrollbar {
-            height: 4px;
+            width: 4px;
         }
 
         /* Track */
@@ -27,10 +27,10 @@
             background: rgba(131 , 145 , 155, 0.54);
         }
         body {
-           background-color: #030f1a; /* 
-            background-color: #ffffff; */
-            overflow-y:hidden;
-            overflow-x: auto;
+          /*   background-color: #030f1a;*/
+            background-color: #ffffff; 
+            overflow-y: auto;
+            overflow-x: hidden;
         }
 
         .egroup {
@@ -48,69 +48,72 @@
             vertical-align: bottom;
         }
 
-        .line { 
+        .line {
+            
             width: 100%;
-            height: 2px;
+            height: 1.5px;
             /* background-color: green; light */
             background-color: #07c37a;
             margin: 0px 0px 2px 0px;
+            font-weight: bold;
             border-radius: 2px 2px 2px 2px;
-            /*dark*/
         }
 
         .lineO {
             width: 100%;
-            height: 2px;
+            height: 1.5px;
+            font-weight: bold;
             /* background-color: red; light*/
             background-color: #ff8256;
             margin: 2px 0px 0px 0px;
             border-radius: 2px 2px 2px 2px;
-            /* dark*/
         }
 
         .counterE {
-            font-size: 16px;
+            font-size: 14px;
             justify-content: center;
             display: flex;
             /* color: rgb(4, 95, 4); light*/
-            color: rgb(57, 211, 57);
+            color:#30a530;
             /* dark*/
-            font-weight: normal;
+            font-weight: bold;
         }
 
         .counterO {
-            font-size: 16px;
+            font-size:14px;
             justify-content: center;
             display: flex;
             /* color: red; light*/
             color: #ff2626;
             /* dark*/
-            font-weight: normal;
+            font-weight: bold;
         }
 
         #container {
             display: flex;
             justify-items: center;
+            flex-wrap: wrap;
 
         }
 
         .eDigits {
            
-            background-color: rgba(0, 128, 0, 0.35);
+            background-color:#1c771c;
             color: #ffffff;
             font-size: 16;
-            width: 20px;
-            height: 20px;
+            width: 18px;
+            height: 18px;
             border-radius: 50%;
             display: flex;
             justify-content: center;
             justify-items: center;
             align-items: center;
-             
+            
 
         }
 
-       
+      
+
         .eDigitsContainer {
             display: flex;
             flex-direction: row;
@@ -122,26 +125,25 @@
         }
 
        
-
         .oDigits {
             
-            background-color:#af241d;
+            background-color: #cf2929;
             color: #ffffff;
             font-size: 16px;
-            width: 20px;
-            height: 20px;
+            width: 18px;
+            height: 18px;
             border-radius: 50%;
             display: flex;
             justify-content: center;
             justify-items: center;
             align-items: center;
-            
+           
 
 
         }
 
         .spacer {
-            height: 22px;
+            height: 20px;
             /* background-color: rebeccapurple; */
         }
 
@@ -212,7 +214,7 @@
             var data = JSON.parse(msg.data);
 
             var digit = Number(data.tick.quote).toFixed(decimals).slice(-1);
-            var isScrolledToBottom = out.scrollWidth - out.clientWidth <= out.scrollLeft + 1;
+            var isScrolledToBottom = out.scrollHeight - out.clientHeight <= out.scrollTop + 1;  
             
             ResData[1] = digit;
             ResData[0]= one;
@@ -401,10 +403,12 @@
 
 
             if (isScrolledToBottom) {
-                out.scrollLeft = out.scrollWidth - out.clientWidth;
+                //  out.scrollLeft = out.scrollWidth - out.clientWidth; 
+                out.scrollTop = out.scrollHeight + out.clientHeight;
             } else {
 
             }
+          
 
         }
     </script>
