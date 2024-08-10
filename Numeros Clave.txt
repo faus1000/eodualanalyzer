@@ -109,7 +109,20 @@ segun contexto de los grupos
 97990-o
 6464-e
 
+8612-10
+12945-1
+67895-1
 
 
 en tendencia bajistas los retrocesos son en general de 2 digitos en contra
 en tendencia alcista los retrocesos son en general de 2 digitos en contra
+
+
+**NUEVA ESTRATEGIA CON LOS GRUPOS
+
+* Grupos menores a 3 continuos, el cambio ocurre entre 1 y 2 digitos del mismo tipo a uno contrario
+
+* si en un lado aparece 3 continuos, esperar 2 o uno en el lado contrario, entrar a favor del lado de los 3 o mas continuos
+
+* si para ambos lados aparecen 3 o mas digitos continuos, esperar el desbalance hacia
+uno de los lados
