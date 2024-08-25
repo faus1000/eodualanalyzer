@@ -204,6 +204,17 @@
                 type: "line",
                 dataPoints: dps
             }],
+            exportEnabled: true,
+  zoomEnabled: true,
+  zoomType: "xy",
+  toolbar: {
+     itemBackgroundColor: "#0E2381",
+     itemBackgroundColorOnHover: "#264DFA",
+     buttonBorderColor: "#60B7FF",
+     buttonBorderThickness: 1,
+     fontColor: "#646779",
+     fontColorOnHover: "#C5C1FF"
+ },
             axisY: {
                 gridColor: "white",
                 gridDashType: "dot",
@@ -219,7 +230,8 @@
                 tickColor: "#293F56",
                 lineColor: "#293F56"
                 /*labelFontColor: "red"*/
-            }
+            } 
+           
         });
 
 
@@ -240,18 +252,15 @@
                 x: xval,
                 y: yval,
                 indexLabel: dg,
-                indexLabelFontWeight: "normal",
+                indexLabelFontWeight: "Bold",
                 indexLabelFontSize: 14,
                 indexLabelFontColor: lcolor,
                 markerSize: 4,
                 markerType: "circle",
-                markerColor: mcolor,
-                /* lineColor: "#83aad9", 
-                  lineColor: "#22BBE0",
-                  lineColor: "#1BB0E0", */
-                lineColor: "#3399ff",
+                markerColor: mcolor, 
+                 lineColor: "#59C2FF",
                 lineDashType: "shortDot",
-                lineThickness: 0.2
+                lineThickness: 0.05
             });
             xval += 1;
 
@@ -284,29 +293,29 @@
 
       if (digit % 2 == 0) {
                 if (digit == 0) {
-                    drawOddEven(1, digit, "#55af11", "#01a501");
+                    drawOddEven(1, digit, "#55af11", "#02BE02");
                 } else if (digit == 2) {
-                    drawOddEven(2, digit, "#55af11", "#01a501");
+                    drawOddEven(2, digit, "#55af11", "#02BE02");
                 } else if (digit == 4) {
-                    drawOddEven(3, digit, "#55af11", "#01a501");
+                    drawOddEven(3, digit, "#55af11", "#02BE02");
                 } else if (digit == 6) {
-                    drawOddEven(4, digit, "#55af11", "#01a501");
+                    drawOddEven(4, digit, "#55af11", "#02BE02");
                 } else if (digit == 8) {
-                    drawOddEven(5, digit, "#55af11", "#01a501");
+                    drawOddEven(5, digit, "#55af11", "#02BE02");
                 }
 
             } else {
                 if (digit == 1) {
-                    drawOddEven(1, digit, "#f95734", "#f74117");
+                    drawOddEven(1, digit, "#f95734", "#FD4C24");
                 } else if (digit == 3) {
-                    drawOddEven(2, digit, "#f95734", "#f74117");
+                    drawOddEven(2, digit, "#f95734", "#FD4C24");
                 }
                 else if (digit == 5) {
-                    drawOddEven(3, digit, "#f95734", "#f74117");
+                    drawOddEven(3, digit, "#f95734", "#FD4C24");
                 } else if (digit == 7) {
-                    drawOddEven(4, digit, "#f95734", "#f74117");
+                    drawOddEven(4, digit, "#f95734", "#FD4C24");
                 } else if (digit == 9) {
-                    drawOddEven(5, digit, "#f95734", "#f74117");
+                    drawOddEven(5, digit, "#f95734", "#FD4C24");
                 }
             }
 
@@ -328,64 +337,64 @@
    
       // MARK: Creando la interface
 
-      function AñadirDigitsE(digito, dualPosE, Ec, counter, AusCounter) {
-        var edigitText = document.createTextNode(digito);
+      // function AñadirDigitsE(digito, dualPosE, Ec, counter, AusCounter) {
+      //   var edigitText = document.createTextNode(digito);
 
-        //var digitoItem = document.getElementById("container");
-        var digitoItem = document.getElementById("d" + Ec);
+      //   //var digitoItem = document.getElementById("container");
+      //   var digitoItem = document.getElementById("d" + Ec);
 
-        var evenDigits = document.createElement("div");
-        evenDigits.setAttribute("class", "evenDigits");
+      //   var evenDigits = document.createElement("div");
+      //   evenDigits.setAttribute("class", "evenDigits");
 
-        var eDigits = document.createElement("div");
-        eDigits.setAttribute("class", "eDigits");
-        var edigitText = document.createTextNode(`E`);
-        eDigits.appendChild(edigitText);
+      //   var eDigits = document.createElement("div");
+      //   eDigits.setAttribute("class", "eDigits");
+      //   var edigitText = document.createTextNode(`E`);
+      //   eDigits.appendChild(edigitText);
 
-        var ePosition = document.createElement("div");
-        if (AusCounter >= 10) {
-          ePosition.setAttribute("class", "oPosition");
-        } else {
-          ePosition.setAttribute("class", "ePosition");
-        }
+      //   var ePosition = document.createElement("div");
+      //   if (AusCounter >= 10) {
+      //     ePosition.setAttribute("class", "oPosition");
+      //   } else {
+      //     ePosition.setAttribute("class", "ePosition");
+      //   }
 
-        var ePostxt = document.createTextNode(AusCounter);
-        ePosition.appendChild(ePostxt);
+      //   var ePostxt = document.createTextNode(AusCounter);
+      //   ePosition.appendChild(ePostxt);
 
-        evenDigits.appendChild(eDigits);
-        evenDigits.appendChild(ePosition);
-        digitoItem.appendChild(evenDigits);
-      }
-
-
-      function AñadirDigitsO(digito, dualPosO, Oc, counter, AusCounter) {
-        //var digitoItemO = document.getElementById("container");
-        var digitoItemO = document.getElementById("d" + Oc);
-
-        var oddDigits = document.createElement("div");
-        oddDigits.setAttribute("class", "oddDigits");
-
-        var oDigits = document.createElement("div");
-        oDigits.setAttribute("class", "oDigits");
-        var odigitText = document.createTextNode(`O`);
-        oDigits.appendChild(odigitText);
-
-        var oPosition = document.createElement("div");
-        if (AusCounter >= 10) {
-          oPosition.setAttribute("class", "oPosition");
-        } else {
-          oPosition.setAttribute("class", "ePosition");
-        }
-        var oPostxt = document.createTextNode(AusCounter);
-        oPosition.appendChild(oPostxt);
-
-        oddDigits.appendChild(oDigits);
-        oddDigits.appendChild(oPosition);
-
-        digitoItemO.appendChild(oddDigits);
+      //   evenDigits.appendChild(eDigits);
+      //   evenDigits.appendChild(ePosition);
+      //   digitoItem.appendChild(evenDigits);
+      // }
 
 
-      }
+      // function AñadirDigitsO(digito, dualPosO, Oc, counter, AusCounter) {
+      //   //var digitoItemO = document.getElementById("container");
+      //   var digitoItemO = document.getElementById("d" + Oc);
+
+      //   var oddDigits = document.createElement("div");
+      //   oddDigits.setAttribute("class", "oddDigits");
+
+      //   var oDigits = document.createElement("div");
+      //   oDigits.setAttribute("class", "oDigits");
+      //   var odigitText = document.createTextNode(`O`);
+      //   oDigits.appendChild(odigitText);
+
+      //   var oPosition = document.createElement("div");
+      //   if (AusCounter >= 10) {
+      //     oPosition.setAttribute("class", "oPosition");
+      //   } else {
+      //     oPosition.setAttribute("class", "ePosition");
+      //   }
+      //   var oPostxt = document.createTextNode(AusCounter);
+      //   oPosition.appendChild(oPostxt);
+
+      //   oddDigits.appendChild(oDigits);
+      //   oddDigits.appendChild(oPosition);
+
+      //   digitoItemO.appendChild(oddDigits);
+
+
+      // }
 
 
       if (isScrolledToBottom) {
