@@ -557,12 +557,11 @@
 
                 var oPosition = document.createElement("div");
                 if (AusCounter >= 10) {
-                    // if(AusCounter%2==0){
-                    //     oPosition.setAttribute('class', 'oPosition');
-                    // }else{
-                    //    oPosition.setAttribute('class', 'odPosition');
-                    // }
-                    oPosition.setAttribute('class', 'oPosition');
+                    if(AusCounter%2==0){
+                        oPosition.setAttribute('class', 'oPosition');
+                    }else{
+                       oPosition.setAttribute('class', 'odPosition');
+                    }
                 } else {
                     oPosition.setAttribute('class', 'ePosition');
                 }
@@ -609,12 +608,11 @@
 
                 var oPosition = document.createElement("div");
                 if (AusCounter >= 10) {
-                    // if(AusCounter%2==0){
-                    //     oPosition.setAttribute('class', 'oPosition');
-                    // }else{
-                    //     oPosition.setAttribute('class', 'odPosition');
-                    // }
-                    oPosition.setAttribute('class', 'oPosition');
+                    if(AusCounter%2==0){
+                        oPosition.setAttribute('class', 'oPosition');
+                    }else{
+                        oPosition.setAttribute('class', 'odPosition');
+                    }
                 } else {
                     oPosition.setAttribute('class', 'ePosition');
                 }
