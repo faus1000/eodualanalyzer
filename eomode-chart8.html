@@ -6,7 +6,7 @@
   <script src="./main.js"></script>
   <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
   <!-- MARK: Depende del archivo -->
-  <title>EOLine Chart7 - V100 by @faus369</title>
+  <title>EOLine Chart8 - V100 by @faus369</title>
   <style>
     /* width */
     ::-webkit-scrollbar {
@@ -150,7 +150,7 @@
     <div id="chartContainer"></div>
     <iframe id="framedc" src="./dc-lite.html"></iframe>
 
-   <iframe id="framegv" src="./gv.html"></iframe>
+   <iframe id="framegv" src="./gv8.html"></iframe>
    <!-- <iframe id="framegv" src="./eomod-nxdigit.html"></iframe> -->
 
   </div>
@@ -241,11 +241,13 @@
         function drawOddEven(yv, dg, mcolor, lcolor) {
 
             if (dg % 2 == 0) {
-                yval += yv;
-                // colorline = "green"
+              //  yval += yv;
+                yval += 1;
+                
             } else {
-                yval -= yv;
-                //colorline = "red"
+              //  yval -= yv;
+                yval -= 1;
+              
             }
 
             dps.push({
