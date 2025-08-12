@@ -204,7 +204,7 @@
                 type: "line",
                 dataPoints: dps
             }],
-            exportEnabled: true,
+            exportEnabled: false,
   zoomEnabled: true,
   zoomType: "xy",
   toolbar: {
@@ -337,67 +337,6 @@
         dg.shift();
       }
    
-      // MARK: Creando la interface
-
-      // function AñadirDigitsE(digito, dualPosE, Ec, counter, AusCounter) {
-      //   var edigitText = document.createTextNode(digito);
-
-      //   //var digitoItem = document.getElementById("container");
-      //   var digitoItem = document.getElementById("d" + Ec);
-
-      //   var evenDigits = document.createElement("div");
-      //   evenDigits.setAttribute("class", "evenDigits");
-
-      //   var eDigits = document.createElement("div");
-      //   eDigits.setAttribute("class", "eDigits");
-      //   var edigitText = document.createTextNode(`E`);
-      //   eDigits.appendChild(edigitText);
-
-      //   var ePosition = document.createElement("div");
-      //   if (AusCounter >= 10) {
-      //     ePosition.setAttribute("class", "oPosition");
-      //   } else {
-      //     ePosition.setAttribute("class", "ePosition");
-      //   }
-
-      //   var ePostxt = document.createTextNode(AusCounter);
-      //   ePosition.appendChild(ePostxt);
-
-      //   evenDigits.appendChild(eDigits);
-      //   evenDigits.appendChild(ePosition);
-      //   digitoItem.appendChild(evenDigits);
-      // }
-
-
-      // function AñadirDigitsO(digito, dualPosO, Oc, counter, AusCounter) {
-      //   //var digitoItemO = document.getElementById("container");
-      //   var digitoItemO = document.getElementById("d" + Oc);
-
-      //   var oddDigits = document.createElement("div");
-      //   oddDigits.setAttribute("class", "oddDigits");
-
-      //   var oDigits = document.createElement("div");
-      //   oDigits.setAttribute("class", "oDigits");
-      //   var odigitText = document.createTextNode(`O`);
-      //   oDigits.appendChild(odigitText);
-
-      //   var oPosition = document.createElement("div");
-      //   if (AusCounter >= 10) {
-      //     oPosition.setAttribute("class", "oPosition");
-      //   } else {
-      //     oPosition.setAttribute("class", "ePosition");
-      //   }
-      //   var oPostxt = document.createTextNode(AusCounter);
-      //   oPosition.appendChild(oPostxt);
-
-      //   oddDigits.appendChild(oDigits);
-      //   oddDigits.appendChild(oPosition);
-
-      //   digitoItemO.appendChild(oddDigits);
-
-
-      // }
-
 
       if (isScrolledToBottom) {
         out.scrollLeft = out.scrollWidth - out.clientWidth;
