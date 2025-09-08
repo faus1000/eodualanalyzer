@@ -18,7 +18,7 @@
     ::-webkit-scrollbar-track {
       box-shadow: transparent;
       border-radius: 0px;
-      background: #020d1c;
+      background: #020d1c; 
     }
 
     /* Handle */
@@ -142,11 +142,29 @@
       height: 360px;
       width: 480px; 
     }
+
+    #tickpanel {
+      position: fixed;
+      height: 200px;
+      width: 114px;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #151739e8; 
+      font-size:18px;
+      border-radius: 4px 4px 4px 4px;
+      display: flex;
+      color: gainsboro;
+      flex-direction: column-reverse;
+      justify-content: center;
+      justify-items: center;
+      align-items: center;
+      z-index: 3;
+    }
   </style>
 </head>
 
 <body>
   <div id="container">
+    <div id="tickpanel"></div>
     <div id="chartContainer"></div>
     <iframe id="framedc" src="./dc-lite.html"></iframe>
 
@@ -287,12 +305,16 @@
     let dst = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
 
 
+let tickPanel = document.getElementById("tickpanel");
+let tickList = [];
 
+     
     ws.onmessage = function (msg) {
       contador++;
       var data = JSON.parse(msg.data);
       var digit = Number(data.tick.quote).toFixed(decimals).slice(-1);
-
+      var tick = Number(data.tick.quote).toFixed(decimals);
+tickList.push(Number(tick));
       if (digit % 2 == 0) {
                 if (digit == 0) {
                     drawOddEven(1, digit, "#55af11", "#02BE02");
@@ -323,8 +345,29 @@
 
       var isScrolledToBottom = out.scrollWidth - out.clientWidth <= out.scrollLeft + 1;
       dg.push(Number(digit));
+if(tickList.length > 8){
+  tickList.shift();
+}
 
 
+tickPanel.innerHTML = ''; // Limpia el panel antes de renderizar
+
+      tickList.forEach(tick => {
+        const [entera, decimal = ''] = tick.toFixed(2).toString().split('.');
+        const dec1 = decimal[0];
+        const dec2 = decimal[1];
+
+        const enteraPar = parseInt(entera) % 2 === 0;
+        const dec1Par = parseInt(dec1) % 2 === 0;
+        const dec2Par = parseInt(dec2) % 2 === 0;
+
+        const spanEntera = `<span style="color:${enteraPar ? '#15ad2a' : '#e43434'}">${entera}</span>`;
+        const spanDec1 = `<span style="color:${dec1Par ? '#15ad2a' : '#e43434'}">${dec1}</span>`;
+        const spanDec2 = `<span style="color:${dec2Par ? '#15ad2a' : '#e43434'}">${dec2}</span>`;
+
+        const tickHTML = `<div class="tick">${spanEntera}.${spanDec1}${spanDec2}</div>`;
+        tickPanel.innerHTML += tickHTML;
+      });
 
 
 
