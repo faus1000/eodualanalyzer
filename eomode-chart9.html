@@ -150,7 +150,8 @@
     <div id="chartContainer"></div>
     <iframe id="framedc" src="./dc-lite.html"></iframe>
 
-   <iframe id="framegv" src="./gv9.html"></iframe>
+   <iframe id="framegv" src="./digits-CR.html"></iframe>
+   <!-- <iframe id="framegv" src="./gv9.html"></iframe> -->
    <!-- <iframe id="framegv" src="./eomod-nxdigit.html"></iframe> -->
 
   </div>
@@ -277,15 +278,10 @@
     var addEGroup = false;
     var AusData = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
 
-    var one = 0;
-    var ResData = [0, 0];
-    //  var DiferencePatterns = [];
-    var NegDiferenceColor = "rgba(255,0, 0, 0.84)";
-    var PosDiferenceColor = "rgba(89,255, 232, 0.75)";
+
 
     let dg = [];
     let dst = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
-
 
 
     ws.onmessage = function (msg) {
@@ -325,12 +321,6 @@
       dg.push(Number(digit));
 
 
-
-
-
-      ResData[1] = digit;
-      ResData[0] = one;
-      one = digit;
   
 
       if (dg.length > 3) {
